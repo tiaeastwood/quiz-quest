@@ -5,6 +5,8 @@ This is the take home exercise to be completed after the AND digital React Nativ
 
 ## Task
 
+I have provided a basic skeleton app with navigation and three screens as well as an API, with examples of it's usage (in Quiz.jsx).
+
 Three REST API calls are pre-written as functions that are given to you in the
 src/api/quiz.js 
 file:
@@ -13,12 +15,12 @@ file:
 
 2 - getRegularQuestions: 10 questions in 4 answer format
 
-3 - getSpecificNumberOfRegularQuestions(number): given n => n questions in 4 answer format NOTE: MUST BE LESS THAN 50
+3 - getSpecificNumberOfRegularQuestions(number): given n => n questions in 4 answer format NOTE: MUST BE LESS THAN 50 questions
 
 ### Create an app where:
 - Using the function getTrueFalseQuestions, display 10 questions in a paginated view or list/scrollview.
 - User can select true or false on the question
-- Result is stored (in a context provider)
+- Result is stored (in a context provider, which you will have to create and wrap around the app)
 - At the end user is showed which answers were correct, which answers the user guessed and their score
 - User can start the quiz again
 
