@@ -1,11 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import Navigation from './src/routes/RouteContainer';
+import Navigation from "./src/routes/RouteContainer";
 
 const App = () => {
-  return (
-      <Navigation />
-  );
+  return <Navigation />;
 };
 
 export default App;

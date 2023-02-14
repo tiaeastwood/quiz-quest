@@ -2,17 +2,20 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, SafeAreaView, Button } from "react-native";
 
-import styles from "./Starter.style.js";
+import styles from "./Finish.style.";
 
-const Starter = () => {
+const Finish = () => {
   const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.bold}>Welcome to the quiz</Text>
-      <Button title="Start Quiz" onPress={() => navigation.navigate("Quiz")} />
+      <Button
+        title="Back to start"
+        onPress={() => navigation.navigate("Starter")}
+      />
     </SafeAreaView>
   );
 };
 
-export default Starter;
+export default Finish;

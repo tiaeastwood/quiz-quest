@@ -1,9 +1,9 @@
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import AppContainer from './AppContainer.jsx';
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+
+import AppContainer from "./AppContainer.jsx";
 
 const RouteContainer = () => {
-
   return (
     <NavigationContainer>
       <AppContainer />
