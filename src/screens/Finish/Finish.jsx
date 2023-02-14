@@ -9,7 +9,7 @@ const Finish = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.bold}>Welcome to the quiz</Text>
+      <Text style={styles.bold}>End of the quiz</Text>
       <Button
         title="Back to start"
         onPress={() => navigation.navigate("Starter")}
