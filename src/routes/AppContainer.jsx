@@ -8,13 +8,19 @@ import Starter from "../screens/Starter/Starter";
 const Stack = createNativeStackNavigator();
 
 const AppContainer = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Starter" component={Starter} />
-      <Stack.Screen name="Quiz" component={Quiz} />
-      <Stack.Screen name="Finish" component={Finish} />
-    </Stack.Navigator>
-  );
+	return (
+		<Stack.Navigator>
+			<Stack.Screen
+				name="Starter"
+				component={Starter}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Stack.Screen name="Quiz" component={Quiz} />
+			<Stack.Screen name="Finish" component={Finish} />
+		</Stack.Navigator>
+	);
 };
 
 export default AppContainer;

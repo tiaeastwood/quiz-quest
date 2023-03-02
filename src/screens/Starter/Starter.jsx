@@ -1,24 +1,57 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { Text, SafeAreaView, View, Image } from "react-native";
+import React, { useState } from "react";
+import { Text, SafeAreaView, View, Image, TextInput } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import quizCat from "../../assets/images/quizcat.png";
 
 import styles from "./Starter.style.js";
 
+const numberOfQuestions = ["10", "20", "30", "40", "50"];
+const questionTypes = ["True or False", "Multiple Choice"];
+
 const Starter = () => {
+	const [numQuestions, setNumQuestions] = useState("");
+	const [questionType, setQuestionType] = useState("");
 	const navigation = useNavigation();
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.innerContainer}>
+				<Text style={styles.titleText}>QUIZ QUEST</Text>
+
 				<View>
-					<Text style={styles.titleText}>QUIZ QUEST</Text>
+					<Text style={styles.subtitle}>Number of questions:</Text>
+					<View style={styles.buttonsContainer}>
+						{numberOfQuestions.map((option, index) => (
+							<CustomButton
+								key={`${option}-${index}`}
+								buttonText={option}
+								onPress={() => setNumQuestions(option)}
+							/>
+						))}
+					</View>
+
+					<View>
+						<Text style={styles.subtitle}>Type of questions:</Text>
+						<View style={styles.buttonsContainer}>
+							{questionTypes.map((q, index) => (
+								<CustomButton
+									key={`${q}-${index}`}
+									buttonText={q}
+									onPress={() => setQuestionType(q)}
+								/>
+							))}
+						</View>
+					</View>
 				</View>
-				<CustomButton
-					buttonText="start"
-					onPress={() => navigation.navigate("Quiz")}
-				/>
+
+				<View>
+					<CustomButton
+						buttonText="start"
+						onPress={() => navigation.navigate("Quiz")}
+						width={300}
+					/>
+				</View>
 			</View>
 			<Image
 				source={quizCat}
