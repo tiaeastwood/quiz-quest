@@ -2,6 +2,7 @@ import React from "react";
 import AppLoading from "expo-app-loading";
 import Navigation from "./src/routes/RouteContainer";
 import * as SplashScreen from "expo-splash-screen";
+import { QuizProvider } from "./src/context/QuizContext";
 
 import { useFonts, Blaka_400Regular } from "@expo-google-fonts/dev";
 
@@ -15,7 +16,11 @@ const App = () => {
 	if (!fontsLoaded) {
 		return <AppLoading />;
 	} else {
-		return <Navigation />;
+		return (
+			<QuizProvider>
+				<Navigation />
+			</QuizProvider>
+		);
 	}
 };
 

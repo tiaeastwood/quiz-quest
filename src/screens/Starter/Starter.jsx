@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Text, SafeAreaView, View, Image, TextInput } from "react-native";
+import { Text, SafeAreaView, View, Image } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import quizCat from "../../assets/images/quizcat.png";
 
@@ -20,7 +20,7 @@ const Starter = () => {
 				<Text style={styles.titleText}>QUIZ QUEST</Text>
 
 				<View>
-					<Text style={styles.subtitle}>Number of questions:</Text>
+          <Text style={styles.subtitle}>Number of questions: {numQuestions}</Text>
 					<View style={styles.buttonsContainer}>
 						{numberOfQuestions.map((option, index) => (
 							<CustomButton
@@ -32,7 +32,7 @@ const Starter = () => {
 					</View>
 
 					<View>
-						<Text style={styles.subtitle}>Type of questions:</Text>
+            <Text style={styles.subtitle}>Type of questions: {questionType}</Text>
 						<View style={styles.buttonsContainer}>
 							{questionTypes.map((q, index) => (
 								<CustomButton
@@ -45,10 +45,15 @@ const Starter = () => {
 					</View>
 				</View>
 
-				<View>
+        <View>
 					<CustomButton
 						buttonText="start"
-						onPress={() => navigation.navigate("Quiz")}
+						onPress={() =>
+							navigation.navigate("Quiz", {
+								numQuestions: numQuestions,
+								questionType: questionType,
+							})
+						}
 						width={300}
 					/>
 				</View>

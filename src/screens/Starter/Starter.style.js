@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
+import palette from "../../styles/colours";
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: "space-between",
 		alignItems: "center",
-		backgroundColor: "#fdf9d9",
+		backgroundColor: palette.background,
 	},
 	innerContainer: {
 		flex: 0.5,
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
 		fontSize: 80,
 		fontWeight: "bold",
 		fontFamily: "Blaka_400Regular",
-		color: "#3a8d71",
+		color: palette.primary,
 	},
 	subtitle: {
 		fontWeight: "bold",
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		padding: 10,
 		borderRadius: 20,
-		backgroundColor: "white",
+		backgroundColor: palette.offWhite,
 		color: "black",
 	},
 	buttonsContainer: {
