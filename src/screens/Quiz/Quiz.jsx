@@ -1,12 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import {
-	Text,
-	SafeAreaView,
-	ActivityIndicator,
-	View,
-	ImageBackground,
-} from "react-native";
+import { Text, SafeAreaView, ActivityIndicator, View } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import { useQuizContext } from "../../context/QuizContext.jsx";
 
@@ -18,6 +12,7 @@ const Quiz = ({ route }) => {
 	const [questions, setQuestions] = useState();
 	const [answers, setAnswers] = useQuizContext();
 	const [answered, setAnswered] = useState(false);
+	const [score, setScore] = useState(0);
 	const navigation = useNavigation();
 
 	const fetchQuestions = async () => {
@@ -28,14 +23,21 @@ const Quiz = ({ route }) => {
 	};
 
 	const saveAnswer = (answer) => {
+		let count = score;
 		const result =
-			answer === questions[questionNum].answer ? "correct" : "incorrect";
+			answer === questions[questionNum].correctAnswer ? true : false;
 
 		let log = {
-			q: 0,
+			q: questionNum,
 			a: answer,
 			result: result,
 		};
+
+		if (result === true) {
+			count++;
+		}
+
+		setScore(count);
 		setAnswers([...answers, { ...log }]);
 		setAnswered(true);
 	};
@@ -89,10 +91,12 @@ const Quiz = ({ route }) => {
 					</View>
 				</View>
 			) : (
-				<Text>All questions answered!</Text>
-				// show result here
-          
-          
+				<View>
+					<Text>All questions answered!</Text>
+					<Text>
+						You scored {score} out of {route.params.numQuestions}
+					</Text>
+				</View>
 			)}
 		</SafeAreaView>
 	);

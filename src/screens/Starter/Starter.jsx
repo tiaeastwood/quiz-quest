@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, SafeAreaView, View, Image } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import quizCat from "../../assets/images/quizcat.png";
@@ -14,13 +14,20 @@ const Starter = () => {
 	const [questionType, setQuestionType] = useState("");
 	const navigation = useNavigation();
 
+	useEffect(() => {
+		setNumQuestions("");
+		setQuestionType("");
+	}, []);
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.innerContainer}>
 				<Text style={styles.titleText}>QUIZ QUEST</Text>
 
 				<View>
-          <Text style={styles.subtitle}>Number of questions: {numQuestions}</Text>
+					<Text style={styles.subtitle}>
+						Number of questions: {numQuestions}
+					</Text>
 					<View style={styles.buttonsContainer}>
 						{numberOfQuestions.map((option, index) => (
 							<CustomButton
@@ -32,7 +39,9 @@ const Starter = () => {
 					</View>
 
 					<View>
-            <Text style={styles.subtitle}>Type of questions: {questionType}</Text>
+						<Text style={styles.subtitle}>
+							Type of questions: {questionType}
+						</Text>
 						<View style={styles.buttonsContainer}>
 							{questionTypes.map((q, index) => (
 								<CustomButton
@@ -45,7 +54,7 @@ const Starter = () => {
 					</View>
 				</View>
 
-        <View>
+				<View>
 					<CustomButton
 						buttonText="start"
 						onPress={() =>
