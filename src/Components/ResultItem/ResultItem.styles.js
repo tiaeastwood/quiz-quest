@@ -2,16 +2,17 @@ import { StyleSheet } from "react-native";
 import palette from "../../styles/colours";
 
 const styles = StyleSheet.create({
-	button: {
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 10,
-		borderRadius: 20,
-		margin: 5,
+	container: {
+        backgroundColor: palette.offWhite,
+        marginVertical: 5,
+        padding: 10,
+        borderRadius: 20
 	},
-	buttonText: {
+	bold: {
 		fontWeight: "bold",
-		textTransform: "uppercase",
+	},
+	reviewAnswer: {
+		marginVertical: 5,
 	},
 });
 

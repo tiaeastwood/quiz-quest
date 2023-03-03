@@ -14,6 +14,8 @@ const Starter = () => {
 	const [questionType, setQuestionType] = useState("");
 	const navigation = useNavigation();
 
+	const canStart = numQuestions !== "" && questionType !== "";
+
 	useEffect(() => {
 		setNumQuestions("");
 		setQuestionType("");
@@ -34,6 +36,7 @@ const Starter = () => {
 								key={`${option}-${index}`}
 								buttonText={option}
 								onPress={() => setNumQuestions(option)}
+								type="primary"
 							/>
 						))}
 					</View>
@@ -48,6 +51,7 @@ const Starter = () => {
 									key={`${q}-${index}`}
 									buttonText={q}
 									onPress={() => setQuestionType(q)}
+									type="primary"
 								/>
 							))}
 						</View>
@@ -64,6 +68,8 @@ const Starter = () => {
 							})
 						}
 						width={300}
+						disabled={!canStart}
+						type="secondary"
 					/>
 				</View>
 			</View>

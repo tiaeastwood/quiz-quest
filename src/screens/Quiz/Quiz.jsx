@@ -1,8 +1,17 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Text, SafeAreaView, ActivityIndicator, View } from "react-native";
+import {
+	Text,
+	SafeAreaView,
+	ActivityIndicator,
+	View,
+	FlatList,
+	Image,
+} from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import { useQuizContext } from "../../context/QuizContext.jsx";
+import awardImg from "../../assets/images/award.png";
+import ResultItem from "../../Components/ResultItem/ResultItem.jsx";
 
 import styles from "./Quiz.style.js";
 import { getTrueFalseQuestions } from "../../api/quiz.js";
@@ -11,7 +20,6 @@ const Quiz = ({ route }) => {
 	const [questionNum, setQuestionNum] = useState(0);
 	const [questions, setQuestions] = useState();
 	const [answers, setAnswers] = useQuizContext();
-	const [answered, setAnswered] = useState(false);
 	const [score, setScore] = useState(0);
 	const navigation = useNavigation();
 
@@ -30,7 +38,7 @@ const Quiz = ({ route }) => {
 		let log = {
 			q: questionNum,
 			a: answer,
-			result: result,
+			result: result ? "Correct" : "Incorrect",
 		};
 
 		if (result === true) {
@@ -39,11 +47,10 @@ const Quiz = ({ route }) => {
 
 		setScore(count);
 		setAnswers([...answers, { ...log }]);
-		setAnswered(true);
+		goToNextQuestion();
 	};
 
 	const goToNextQuestion = () => {
-		setAnswered(false);
 		const nextQuestion = questionNum + 1;
 		setQuestionNum(nextQuestion);
 	};
@@ -66,36 +73,37 @@ const Quiz = ({ route }) => {
 								key={`${answer}-${index}`}
 								buttonText={answer}
 								onPress={() => saveAnswer(answer)}
+								type="primary"
 							/>
 						))}
 					</View>
-
-					{answered && (
-						<View>
-							<Text>You answered: {answers[questionNum].a}</Text>
-							<Text>
-								Correct answer is: {questions[questionNum].correctAnswer}
-							</Text>
-						</View>
-					)}
-
 					<View style={styles.buttonContainer}>
 						<CustomButton
 							buttonText="End Quiz"
 							onPress={() => navigation.navigate("Finish")}
-						/>
-						<CustomButton
-							buttonText="Next question"
-							onPress={() => goToNextQuestion()}
+							type="secondary"
 						/>
 					</View>
 				</View>
 			) : (
-				<View>
-					<Text>All questions answered!</Text>
-					<Text>
+				<View style={styles.resultContainer}>
+					<Text style={styles.endTitle}>All questions answered!</Text>
+					<Text style={styles.scoreAnnouncement}>
 						You scored {score} out of {route.params.numQuestions}
 					</Text>
+
+					<Image source={awardImg} alt="trophy" style={styles.awardImg} />
+
+					<View style={styles.listContainer}>
+						<Text style={styles.subtitle}>Review your answers:</Text>
+						<FlatList
+							data={answers}
+							renderItem={({ item }) => (
+								<ResultItem questions={questions} item={item} />
+							)}
+							keyExtractor={(item) => item.q}
+						/>
+					</View>
 				</View>
 			)}
 		</SafeAreaView>

@@ -8,10 +8,10 @@ const styles = StyleSheet.create({
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
-		backgroundColor: palette.background,
+		backgroundColor: palette.primary,
 	},
-  gameContainer: {
-    width: "80%",
+	gameContainer: {
+		width: "80%",
 		height: "75%",
 		alignItems: "center",
 		justifyContent: "space-evenly",
@@ -23,6 +23,47 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		fontSize: 24,
 		color: palette.primary,
+	},
+	subtitle: {
+		fontWeight: "bold",
+		fontSize: 20,
+		color: palette.offBlack,
+		marginBottom: 5
+	},
+	endTitle: {
+		fontWeight: "bold",
+		fontSize: 20,
+		color: palette.background,
+	},
+	scoreAnnouncement: {
+		fontWeight: "bold",
+		fontSize: 30,
+		color: palette.offWhite,
+	},
+	awardImg: {
+		width: 200,
+		height: 250,
+		resizeMode: "contain",
+	},
+	bold: {
+		fontWeight: "bold",
+	},
+	resultContainer: {
+		flex: 1,
+		marginTop: 20,
+		alignItems: "center",
+		width: "100%",
+	},
+	listContainer: {
+		flex: 1,
+		marginTop: 10,
+		backgroundColor: palette.background,
+		width: "100%",
+		padding: 20,
+		marginBottom: -40,
+	},
+	reviewAnswer: {
+		marginVertical: 5,
 	},
 	question: {
 		fontSize: 14,
