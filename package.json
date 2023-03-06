@@ -28,7 +28,8 @@
     "react-native-screens": "~3.18.0",
     "expo-linear-gradient": "~12.0.1",
     "@react-native-masked-view/masked-view": "0.2.8",
-    "@react-native-community/slider": "4.2.4"
+    "@react-native-community/slider": "4.2.4",
+    "lottie-react-native": "5.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

@@ -80,3 +80,12 @@ Then press 'i' or 'a' to open the ios or android simulator
 ## Authors
 
 - Jess Purvis
+
+
+---
+
+# Tia's Notes
+
+## Animations
+- [Lottie docs](https://airbnb.io/lottie/#/)
+- [Lottie files - free animations](https://lottiefiles.com/)
