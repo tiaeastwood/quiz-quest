@@ -1,7 +1,7 @@
 import React from "react";
 import Navigation from "./src/routes/RouteContainer";
 import { QuizProvider } from "./src/context/QuizContext";
-import { Text } from "react-native";
+import { Text, ActivityIndicator } from "react-native";
 
 import { useFonts, Blaka_400Regular } from "@expo-google-fonts/dev";
 
@@ -11,7 +11,7 @@ const App = () => {
 	});
 
 	if (!fontsLoaded) {
-		return <Text>Loading...</Text>;
+		return <ActivityIndicator />;
 	} else {
 		return (
 			<QuizProvider>

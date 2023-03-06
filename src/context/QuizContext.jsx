@@ -7,10 +7,11 @@ export const useQuizContext = () => {
 };
 
 export const QuizProvider = ({ children }) => {
-	const [questions, setQuestions] = useState()
+	const [questions, setQuestions] = useState();
 	const [answers, setAnswers] = useState([]);
-	const [num, setNum] = useState();
+	const [num, setNum] = useState(10);
 	const [type, setType] = useState("");
+	const [count, setCount] = useState(0);
 
 	return (
 		<QuizContext.Provider
@@ -19,6 +20,7 @@ export const QuizProvider = ({ children }) => {
 				recordedAnswers: [answers, setAnswers],
 				numQuestions: [num, setNum],
 				questionType: [type, setType],
+				counter: [count, setCount],
 			}}
 		>
 			{children}

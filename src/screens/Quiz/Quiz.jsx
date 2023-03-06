@@ -12,18 +12,23 @@ import {
 } from "../../api/quiz.js";
 
 const Quiz = () => {
-	const [questionNum, setQuestionNum] = useState(0);
-
-	const { quizQuestions, recordedAnswers, numQuestions, questionType } =
-		useQuizContext();
+	const {
+		quizQuestions,
+		recordedAnswers,
+		numQuestions,
+		questionType,
+		counter,
+	} = useQuizContext();
 	const [questions, setQuestions] = quizQuestions;
 	const [answers, setAnswers] = recordedAnswers;
 	const [num] = numQuestions;
 	const [type] = questionType;
+	const [count, setCount] = counter;
+	const [selectedOption, setSelectedOption] = useState("");
 
 	const navigation = useNavigation();
 
-	const endOfQuestions = questionNum === num - 1;
+	const endOfQuestions = count === num - 1;
 
 	const fetchQuestions = async () => {
 		if (type === "True or False") {
@@ -36,25 +41,31 @@ const Quiz = () => {
 	};
 
 	const saveAnswer = (answer) => {
-		const result =
-			answer === questions[questionNum].correctAnswer ? true : false;
+		setSelectedOption(answer);
+
+		const result = answer === questions[count].correctAnswer ? true : false;
 
 		let log = {
-			q: questionNum,
+			q: count,
 			a: answer,
 			result: result ? "Correct" : "Incorrect",
 		};
 
 		setAnswers([...answers, { ...log }]);
-		goToNextQuestion();
+
+		if (!endOfQuestions) {
+			goToNextQuestion();
+		}
 	};
 
 	const goToNextQuestion = () => {
-		const nextQuestion = questionNum + 1;
-		setQuestionNum(nextQuestion);
+		const nextQuestion = count + 1;
+		setCount(nextQuestion);
+		setSelectedOption("");
 	};
 
 	useEffect(() => {
+		setCount(0);
 		fetchQuestions();
 	}, []);
 
@@ -64,10 +75,10 @@ const Quiz = () => {
 		<GradientWrapper>
 			<SafeAreaView style={styles.mainContainer}>
 				<View style={styles.gameContainer}>
-					<Text style={styles.title}>Question {questionNum + 1}</Text>
-					<Text style={styles.question}>{questions[questionNum].question}</Text>
+					<Text style={styles.title}>Question {count + 1}</Text>
+					<Text style={styles.question}>{questions[count].question}</Text>
 					<View style={styles.buttonContainer}>
-						{questions[questionNum].answers.map((answer, index) => (
+						{questions[count].answers.map((answer, index) => (
 							<CustomButton
 								key={`${answer}-${index}`}
 								buttonText={answer}
@@ -78,7 +89,7 @@ const Quiz = () => {
 						))}
 					</View>
 					<View style={styles.buttonContainer}>
-						{endOfQuestions && (
+						{endOfQuestions && selectedOption !== "" && (
 							<CustomButton
 								buttonText="Finish"
 								onPress={() => navigation.navigate("Finish")}

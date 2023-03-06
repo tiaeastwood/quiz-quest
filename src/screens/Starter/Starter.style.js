@@ -40,10 +40,14 @@ const styles = StyleSheet.create({
 		backgroundColor: palette.offWhite,
 		color: "black",
 	},
+	optionsContainer: {
+		width: "80%",
+	},
 	buttonsContainer: {
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-between",
+		marginBottom: 20
 	},
 });
 

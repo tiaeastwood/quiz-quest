@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Text, Pressable } from "react-native";
 import styles from "./CustomButton.style";
 import palette from "../../styles/colours";
@@ -5,10 +6,10 @@ import palette from "../../styles/colours";
 const CustomButton = ({
 	fullWidth,
 	buttonText,
-	onPress,
 	width,
 	disabled,
 	type,
+	onPress,
 }) => {
 	return (
 		<Pressable

@@ -8,8 +8,6 @@ import {
 	View,
 	ActivityIndicator,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import palette from "../../styles/colours.js";
 import { useQuizContext } from "../../context/QuizContext.jsx";
 import awardImg from "../../assets/images/award.png";
 import ResultItem from "../../Components/ResultItem/ResultItem.jsx";
@@ -19,10 +17,18 @@ import GradientWrapper from "../../Components/GradientWrapper/GradientWrapper.js
 import styles from "./Finish.style.";
 
 const Finish = () => {
-	const { quizQuestions, recordedAnswers, numQuestions } = useQuizContext();
+	const {
+		quizQuestions,
+		recordedAnswers,
+		numQuestions,
+		questionType,
+		counter,
+	} = useQuizContext();
 	const [questions, setQuestions] = quizQuestions;
-	const [answers] = recordedAnswers;
-	const [num] = numQuestions;
+	const [answers, setAnswers] = recordedAnswers;
+	const [num, setNum] = numQuestions;
+	const [type, setType] = questionType;
+	const [count, setCount] = counter;
 	const [finalScore, setFinalScore] = useState(null);
 
 	const navigation = useNavigation();
@@ -35,6 +41,21 @@ const Finish = () => {
 			}
 		}
 		setFinalScore(score);
+	};
+
+	const playAgain = () => {
+		navigation.navigate("Quiz");
+		setCount(0);
+		setAnswers([]);
+	};
+
+	const quit = () => {
+		navigation.navigate("Starter");
+		setQuestions();
+		setAnswers([]);
+		setNum(10);
+		setType("");
+		setCount(0);
 	};
 
 	useEffect(() => {
@@ -58,12 +79,12 @@ const Finish = () => {
 					<View style={styles.buttonContainer}>
 						<CustomButton
 							buttonText="Play Again"
-							onPress={() => navigation.navigate("Starter")}
+							onPress={() => playAgain()}
 							type="primary"
 						/>
 						<CustomButton
 							buttonText="Quit"
-							onPress={() => navigation.navigate("Starter")}
+							onPress={() => quit()}
 							type="secondary"
 						/>
 					</View>
