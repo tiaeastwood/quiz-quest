@@ -1,37 +1,41 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import {
-	Text,
-	SafeAreaView,
-	ActivityIndicator,
-	View,
-	FlatList,
-	Image,
-} from "react-native";
+import { Text, SafeAreaView, ActivityIndicator, View } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import { useQuizContext } from "../../context/QuizContext.jsx";
-import awardImg from "../../assets/images/award.png";
-import ResultItem from "../../Components/ResultItem/ResultItem.jsx";
+import GradientWrapper from "../../Components/GradientWrapper/GradientWrapper.jsx";
 
 import styles from "./Quiz.style.js";
-import { getTrueFalseQuestions } from "../../api/quiz.js";
+import {
+	getTrueFalseQuestions,
+	getSpecificNumberOfRegularQuestions,
+} from "../../api/quiz.js";
 
-const Quiz = ({ route }) => {
+const Quiz = () => {
 	const [questionNum, setQuestionNum] = useState(0);
-	const [questions, setQuestions] = useState();
-	const [answers, setAnswers] = useQuizContext();
-	const [score, setScore] = useState(0);
+
+	const { quizQuestions, recordedAnswers, numQuestions, questionType } =
+		useQuizContext();
+	const [questions, setQuestions] = quizQuestions;
+	const [answers, setAnswers] = recordedAnswers;
+	const [num] = numQuestions;
+	const [type] = questionType;
+
 	const navigation = useNavigation();
 
+	const endOfQuestions = questionNum === num - 1;
+
 	const fetchQuestions = async () => {
-		const fetchedQuestions = await getTrueFalseQuestions(
-			route.params.numOfQuestions,
-		);
-		setQuestions(fetchedQuestions);
+		if (type === "True or False") {
+			const trueOrFalseQuestions = await getTrueFalseQuestions(num);
+			setQuestions(trueOrFalseQuestions);
+		} else {
+			const regularQuestions = await getSpecificNumberOfRegularQuestions(num);
+			setQuestions(regularQuestions);
+		}
 	};
 
 	const saveAnswer = (answer) => {
-		let count = score;
 		const result =
 			answer === questions[questionNum].correctAnswer ? true : false;
 
@@ -41,11 +45,6 @@ const Quiz = ({ route }) => {
 			result: result ? "Correct" : "Incorrect",
 		};
 
-		if (result === true) {
-			count++;
-		}
-
-		setScore(count);
 		setAnswers([...answers, { ...log }]);
 		goToNextQuestion();
 	};
@@ -62,8 +61,8 @@ const Quiz = ({ route }) => {
 	if (!questions) return <ActivityIndicator />;
 
 	return (
-		<SafeAreaView style={styles.mainContainer}>
-			{questionNum < route.params.numQuestions ? (
+		<GradientWrapper>
+			<SafeAreaView style={styles.mainContainer}>
 				<View style={styles.gameContainer}>
 					<Text style={styles.title}>Question {questionNum + 1}</Text>
 					<Text style={styles.question}>{questions[questionNum].question}</Text>
@@ -74,39 +73,22 @@ const Quiz = ({ route }) => {
 								buttonText={answer}
 								onPress={() => saveAnswer(answer)}
 								type="primary"
+								fullWidth
 							/>
 						))}
 					</View>
 					<View style={styles.buttonContainer}>
-						<CustomButton
-							buttonText="End Quiz"
-							onPress={() => navigation.navigate("Finish")}
-							type="secondary"
-						/>
+						{endOfQuestions && (
+							<CustomButton
+								buttonText="Finish"
+								onPress={() => navigation.navigate("Finish")}
+								type="secondary"
+							/>
+						)}
 					</View>
 				</View>
-			) : (
-				<View style={styles.resultContainer}>
-					<Text style={styles.endTitle}>All questions answered!</Text>
-					<Text style={styles.scoreAnnouncement}>
-						You scored {score} out of {route.params.numQuestions}
-					</Text>
-
-					<Image source={awardImg} alt="trophy" style={styles.awardImg} />
-
-					<View style={styles.listContainer}>
-						<Text style={styles.subtitle}>Review your answers:</Text>
-						<FlatList
-							data={answers}
-							renderItem={({ item }) => (
-								<ResultItem questions={questions} item={item} />
-							)}
-							keyExtractor={(item) => item.q}
-						/>
-					</View>
-				</View>
-			)}
-		</SafeAreaView>
+			</SafeAreaView>
+		</GradientWrapper>
 	);
 };
 

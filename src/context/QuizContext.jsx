@@ -7,11 +7,19 @@ export const useQuizContext = () => {
 };
 
 export const QuizProvider = ({ children }) => {
+	const [questions, setQuestions] = useState()
 	const [answers, setAnswers] = useState([]);
+	const [num, setNum] = useState();
+	const [type, setType] = useState("");
 
 	return (
 		<QuizContext.Provider
-			value={[answers, setAnswers]}
+			value={{
+				quizQuestions: [questions, setQuestions],
+				recordedAnswers: [answers, setAnswers],
+				numQuestions: [num, setNum],
+				questionType: [type, setType],
+			}}
 		>
 			{children}
 		</QuizContext.Provider>

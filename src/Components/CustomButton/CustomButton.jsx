@@ -2,22 +2,34 @@ import { Text, Pressable } from "react-native";
 import styles from "./CustomButton.style";
 import palette from "../../styles/colours";
 
-const CustomButton = ({ buttonText, onPress, width, disabled, type }) => {
-
+const CustomButton = ({
+	fullWidth,
+	buttonText,
+	onPress,
+	width,
+	disabled,
+	type,
+}) => {
 	return (
 		<Pressable
 			style={[
 				styles.button,
 				{
 					width: width || "auto",
-					backgroundColor: disabled ? palette.grey : palette[type],
+					backgroundColor: disabled ? "transparent" : palette[type],
+					borderWidth: 2,
+					borderColor: palette[type],
+					alignSelf: fullWidth ? "stretch" : "center",
 				},
 			]}
 			onPress={onPress}
 			disabled={disabled}
 		>
 			<Text
-				style={[styles.buttonText, { color: disabled ? "black" : "white" }]}
+				style={[
+					styles.buttonText,
+					{ color: disabled ? palette[type] : "white" },
+				]}
 			>
 				{buttonText}
 			</Text>

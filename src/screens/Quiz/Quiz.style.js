@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
-		backgroundColor: palette.primary,
+		backgroundColor: "transparent",
 	},
 	gameContainer: {
 		width: "80%",
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		fontSize: 20,
 		color: palette.offBlack,
-		marginBottom: 5
+		marginBottom: 5,
 	},
 	endTitle: {
 		fontWeight: "bold",
@@ -66,14 +66,13 @@ const styles = StyleSheet.create({
 		marginVertical: 5,
 	},
 	question: {
-		fontSize: 14,
+		fontSize: 16,
 		color: palette.offBlack,
 	},
 	buttonContainer: {
-		display: "flex",
-		flexDirection: "row",
-		justifyContent: "space-between",
+		justifyContent: "center",
 		alignItems: "center",
+		width: "100%"
 	},
 });
 

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-around",
 	},
 	titleText: {
-		fontSize: 80,
+		fontSize: 90,
 		fontWeight: "bold",
 		fontFamily: "Blaka_400Regular",
 		color: palette.primary,
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
 	subtitle: {
 		fontWeight: "bold",
 		marginVertical: 10,
+		color: palette.primary,
 	},
 	homeImage: {
 		height: 400,

@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Text, SafeAreaView, View, Image } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import quizCat from "../../assets/images/quizcat.png";
+import MaskedView from "@react-native-masked-view/masked-view";
+import { LinearGradient } from "expo-linear-gradient";
+import palette from "../../styles/colours.js";
+import { useQuizContext } from "../../context/QuizContext.jsx";
 
 import styles from "./Starter.style.js";
 
@@ -10,32 +14,52 @@ const numberOfQuestions = ["10", "20", "30", "40", "50"];
 const questionTypes = ["True or False", "Multiple Choice"];
 
 const Starter = () => {
-	const [numQuestions, setNumQuestions] = useState("");
-	const [questionType, setQuestionType] = useState("");
+	const { numQuestions, questionType } = useQuizContext();
+	const [num, setNum] = numQuestions;
+	const [type, setType] = questionType;
+
 	const navigation = useNavigation();
 
-	const canStart = numQuestions !== "" && questionType !== "";
-
-	useEffect(() => {
-		setNumQuestions("");
-		setQuestionType("");
-	}, []);
+	const canStart = num !== "" && type !== "";
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.innerContainer}>
-				<Text style={styles.titleText}>QUIZ QUEST</Text>
+				<MaskedView
+					style={{ flex: 0.5, flexDirection: "row", height: "100%" }}
+					maskElement={
+						<View
+							style={{
+								// Transparent background because mask is based off alpha channel.
+								backgroundColor: "transparent",
+								flex: 1,
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
+							<Text style={styles.titleText}>QUIZ QUEST</Text>
+						</View>
+					}
+				>
+					{/* Shows behind the mask, you can put anything here, such as an image */}
+					<LinearGradient
+						colors={[palette.primary, palette.accent]}
+						start={{ x: 0, y: 1 }}
+						end={{ x: 0, y: 0.33 }}
+						style={{ flex: 1 }}
+					/>
+				</MaskedView>
 
 				<View>
 					<Text style={styles.subtitle}>
-						Number of questions: {numQuestions}
+						Choose number of questions: {numQuestions}
 					</Text>
 					<View style={styles.buttonsContainer}>
 						{numberOfQuestions.map((option, index) => (
 							<CustomButton
 								key={`${option}-${index}`}
 								buttonText={option}
-								onPress={() => setNumQuestions(option)}
+								onPress={() => setNum(option)}
 								type="primary"
 							/>
 						))}
@@ -43,14 +67,14 @@ const Starter = () => {
 
 					<View>
 						<Text style={styles.subtitle}>
-							Type of questions: {questionType}
+							Choose type of questions: {questionType}
 						</Text>
 						<View style={styles.buttonsContainer}>
 							{questionTypes.map((q, index) => (
 								<CustomButton
 									key={`${q}-${index}`}
 									buttonText={q}
-									onPress={() => setQuestionType(q)}
+									onPress={() => setType(q)}
 									type="primary"
 								/>
 							))}
@@ -61,12 +85,7 @@ const Starter = () => {
 				<View>
 					<CustomButton
 						buttonText="start"
-						onPress={() =>
-							navigation.navigate("Quiz", {
-								numQuestions: numQuestions,
-								questionType: questionType,
-							})
-						}
+						onPress={() => navigation.navigate("Quiz")}
 						width={300}
 						disabled={!canStart}
 						type="secondary"
