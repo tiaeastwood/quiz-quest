@@ -18,18 +18,7 @@ import LottieView from "lottie-react-native";
 import styles from "./Finish.style.";
 
 const Finish = () => {
-	const {
-		quizQuestions,
-		recordedAnswers,
-		numQuestions,
-		questionType,
-		counter,
-	} = useQuizContext();
-	const [questions, setQuestions] = quizQuestions;
-	const [answers, setAnswers] = recordedAnswers;
-	const [num, setNum] = numQuestions;
-	const [type, setType] = questionType;
-	const [count, setCount] = counter;
+	const { quizQuestions, recordedAnswers, reset } = useQuizContext();
 	const [finalScore, setFinalScore] = useState(null);
 
 	const navigation = useNavigation();
@@ -37,8 +26,8 @@ const Finish = () => {
 
 	const getScore = () => {
 		let score = 0;
-		for (const answer of answers) {
-			if (answer.result === "Correct") {
+		for (let i = 0; i < quizQuestions.length; i++) {
+			if (quizQuestions[i].correctAnswer === recordedAnswers[i].answer) {
 				score++;
 			}
 		}
@@ -47,17 +36,12 @@ const Finish = () => {
 
 	const playAgain = () => {
 		navigation.navigate("Quiz");
-		setCount(0);
-		setAnswers([]);
+		reset("answers");
 	};
 
 	const quit = () => {
 		navigation.navigate("Starter");
-		setQuestions();
-		setAnswers([]);
-		setNum(10);
-		setType("");
-		setCount(0);
+		reset("all");
 	};
 
 	useEffect(() => {
@@ -66,6 +50,7 @@ const Finish = () => {
 
 	if (finalScore === null) return <ActivityIndicator />;
 
+
 	return (
 		<GradientWrapper>
 			<SafeAreaView style={styles.container}>
@@ -73,7 +58,7 @@ const Finish = () => {
 					<Text style={styles.endTitle}>All questions answered!</Text>
 
 					<Text style={styles.scoreAnnouncement}>
-						You scored {finalScore} out of {num}
+						You scored {finalScore} out of {quizQuestions.length}
 					</Text>
 
 					<LottieView
@@ -106,11 +91,11 @@ const Finish = () => {
 					<View style={styles.listContainer}>
 						<Text style={styles.subtitle}>Review your answers:</Text>
 						<FlatList
-							data={answers}
+							data={recordedAnswers}
 							renderItem={({ item }) => (
-								<ResultItem questions={questions} item={item} />
+								<ResultItem questions={quizQuestions} item={item} />
 							)}
-							keyExtractor={(item) => item.q}
+							keyExtractor={(item) => item.id}
 						/>
 					</View>
 				</View>
