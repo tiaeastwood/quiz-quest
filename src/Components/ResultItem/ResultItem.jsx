@@ -8,18 +8,18 @@ const ResultItem = ({ questions, item }) => {
 		<View style={styles.container}>
 			<View style={styles.textArea}>
 				<Text style={styles.text}>
-					<Text style={styles.bold}>No.</Text> {item.q + 1}
+					<Text style={styles.bold}>No.</Text> {item.id + 1}
 				</Text>
 				<Text style={styles.text}>
 					<Text style={styles.bold}>Question:</Text>{" "}
-					{questions[item.q].question}
+					{questions[item.id].question}
 				</Text>
 				<Text style={styles.text}>
-					<Text style={styles.bold}>You answered:</Text> {item.a}
+					<Text style={styles.bold}>You answered:</Text> {item.answer}
 				</Text>
 			</View>
 			<View style={styles.icon}>
-				{item.result === "Correct" ? (
+				{questions[item.id].correctAnswer === item.answer ? (
 					<Entypo name="check" size={60} color={palette.accent} />
 				) : (
 					<Entypo name="cross" size={60} color={palette.secondary} />

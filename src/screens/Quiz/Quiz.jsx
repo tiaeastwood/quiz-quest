@@ -14,93 +14,82 @@ import {
 const Quiz = () => {
 	const {
 		quizQuestions,
-		recordedAnswers,
 		numQuestions,
 		questionType,
+		updateQuestions,
+		addAnswer,
 		counter,
+		updateCounter,
 	} = useQuizContext();
-	const [questions, setQuestions] = quizQuestions;
-	const [answers, setAnswers] = recordedAnswers;
-	const [num] = numQuestions;
-	const [type] = questionType;
-	const [count, setCount] = counter;
+
 	const [selectedOption, setSelectedOption] = useState("");
 
 	const navigation = useNavigation();
 
-	const endOfQuestions = count === num - 1;
+	const endOfQuestions = counter === numQuestions - 1;
 
 	const fetchQuestions = async () => {
-		if (type === "True or False") {
-			const trueOrFalseQuestions = await getTrueFalseQuestions(num);
-			setQuestions(trueOrFalseQuestions);
+		if (questionType === "True or False") {
+			const trueOrFalseQuestions = await getTrueFalseQuestions(numQuestions);
+			await updateQuestions(trueOrFalseQuestions);
 		} else {
-			const regularQuestions = await getSpecificNumberOfRegularQuestions(num);
-			setQuestions(regularQuestions);
+			const regularQuestions = await getSpecificNumberOfRegularQuestions(
+				numQuestions,
+			);
+			await updateQuestions(regularQuestions);
 		}
 	};
 
 	const saveAnswer = (answer) => {
 		setSelectedOption(answer);
 
-		const result = answer === questions[count].correctAnswer ? true : false;
-
-		let log = {
-			q: count,
-			a: answer,
-			result: result ? "Correct" : "Incorrect",
-		};
-
-		setAnswers([...answers, { ...log }]);
+		addAnswer({ id: counter, answer: answer });
 
 		if (!endOfQuestions) {
 			goToNextQuestion();
+		} else {
+			navigation.navigate("Finish");
 		}
 	};
 
 	const goToNextQuestion = () => {
-		const nextQuestion = count + 1;
-		setCount(nextQuestion);
+		const nextQuestion = counter + 1;
+		updateCounter(nextQuestion);
 		setSelectedOption("");
 	};
 
 	useEffect(() => {
-		setCount(0);
 		fetchQuestions();
 	}, []);
 
-	if (!questions) return <ActivityIndicator />;
-
-	return (
-		<GradientWrapper>
-			<SafeAreaView style={styles.mainContainer}>
-				<View style={styles.gameContainer}>
-					<Text style={styles.title}>Question {count + 1}</Text>
-					<Text style={styles.question}>{questions[count].question}</Text>
-					<View style={styles.buttonContainer}>
-						{questions[count].answers.map((answer, index) => (
-							<CustomButton
-								key={`${answer}-${index}`}
-								buttonText={answer}
-								onPress={() => saveAnswer(answer)}
-								type="primary"
-								fullWidth
-							/>
-						))}
+	if (quizQuestions.length === 0) {
+		return <ActivityIndicator />;
+	} else {
+		return (
+			<GradientWrapper>
+				<SafeAreaView style={styles.mainContainer}>
+					<View style={styles.gameContainer}>
+						<Text style={styles.title}>Question {counter + 1}</Text>
+						<Text style={styles.question}>
+							{quizQuestions && quizQuestions[counter].question}
+						</Text>
+						<View style={styles.buttonContainer}>
+							{quizQuestions &&
+								quizQuestions[counter].answers.map((answer, index) => (
+									<CustomButton
+										key={`${answer}-${index}`}
+										buttonText={answer}
+										onPress={() => saveAnswer(answer)}
+										type="primary"
+										fullWidth
+									/>
+								))}
+						</View>
 					</View>
-					<View style={styles.buttonContainer}>
-						{endOfQuestions && selectedOption !== "" && (
-							<CustomButton
-								buttonText="Finish"
-								onPress={() => navigation.navigate("Finish")}
-								type="secondary"
-							/>
-						)}
-					</View>
-				</View>
-			</SafeAreaView>
-		</GradientWrapper>
-	);
+				</SafeAreaView>
+			</GradientWrapper>
+		);
+	}
 };
 
 export default Quiz;

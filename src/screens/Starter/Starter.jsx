@@ -14,34 +14,12 @@ import Pawprint from "../../assets/images/pawprint.png";
 const questionTypes = ["True or False", "Multiple Choice"];
 
 const Starter = () => {
-	const {
-		quizQuestions,
-		recordedAnswers,
-		numQuestions,
-		questionType,
-		counter,
-	} = useQuizContext();
-	const [questions, setQuestions] = quizQuestions;
-	const [answers, setAnswers] = recordedAnswers;
-	const [num, setNum] = numQuestions;
-	const [type, setType] = questionType;
-	const [count, setCount] = counter;
+	const { numQuestions, questionType, updateNumQuestions, updateQuestionType } =
+		useQuizContext();
 
 	const navigation = useNavigation();
 
-	const canStart = num !== "" && type !== "";
-
-	const reset = () => {
-		setQuestions();
-		setAnswers([]);
-		setNum(10);
-		setType("");
-		setCount(0);
-	};
-
-	useEffect(() => {
-		reset();
-	}, []);
+	const canStart = numQuestions && questionType;
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -83,7 +61,7 @@ const Starter = () => {
 							maximumValue={50}
 							minimumTrackTintColor={palette.primary}
 							maximumTrackTintColor={palette.accent}
-							onValueChange={setNum}
+							onValueChange={updateNumQuestions}
 							thumbImage={Pawprint}
 						/>
 					</View>
@@ -93,11 +71,11 @@ const Starter = () => {
 							Choose type of questions: {questionType}
 						</Text>
 						<View style={styles.buttonsContainer}>
-							{questionTypes.map((q, index) => (
+							{questionTypes.map((qType, index) => (
 								<CustomButton
-									key={`${q}-${index}`}
-									buttonText={q}
-									onPress={() => setType(q)}
+									key={`${qType}-${index}`}
+									buttonText={qType}
+									onPress={() => updateQuestionType(qType)}
 									type="primary"
 								/>
 							))}
