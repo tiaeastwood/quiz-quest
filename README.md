@@ -28,11 +28,13 @@ As well as completing the tasks provided in the brief, I spent some time designi
 
 ## Screenshots
 
+<table>
   <tr>
-    <td><img src="./src/assets/screenshots/screenshot1.png" height="500" alt="home screen"></td>
+    <td><img src="./src/assets/screenshots/screenshot1.png" height="500"  alt="home screen"></td>
     <td><img src="./src/assets/screenshots/screenshot2.png" height="500" alt="quiz screen"></td>
     <td><img src="./src/assets/screenshots/screenshot3.png" height="500" alt="results screen"></td>
   </tr>
+</table>
 
 
 ---
