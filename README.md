@@ -28,9 +28,12 @@ As well as completing the tasks provided in the brief, I spent some time designi
 
 ## Screenshots
 
-<img src="./src/assets/screenshots/screenshot1.png" height="600" alt="home screen">
-<img src="./src/assets/screenshots/screenshot2.png" height="600" alt="quiz screen">
-<img src="./src/assets/screenshots/screenshot3.png" height="600" alt="results screen">
+  <tr>
+    <td><img src="./src/assets/screenshots/screenshot1.png" height="500" alt="home screen"></td>
+    <td><img src="./src/assets/screenshots/screenshot2.png" height="500" alt="quiz screen"></td>
+    <td><img src="./src/assets/screenshots/screenshot3.png" height="500" alt="results screen"></td>
+  </tr>
+
 
 ---
 
@@ -65,39 +68,7 @@ src/api/quiz.js file:_"
 
 Trivia API: [https://opentdb.com/api_config.php](https://opentdb.com/api_config.php)
 
-
-
-# Installation guide
-
-It's an expo project so pretty easy to run!
-
-## Run Locally
-
-If you don't have expo, install with:
-```bash
-npm i -g expo-cli
-```
-
-Go to the project directory
-
-```bash
-  cd take-home-exercise
-```
-
-Install dependencies
-
-```bash
-  npm i
-```
-
-Start the server
-
-```bash
-  expo start
-```
-Then press 'i' or 'a' to open the ios or android simulator
-
-## Authors
+### Brief Authors
 
 - Jess Purvis
 
