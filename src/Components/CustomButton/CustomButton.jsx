@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Text, Pressable } from "react-native";
-import styles from "./CustomButton.style";
+import { Text, Pressable, Dimensions } from "react-native";
+import getStyles from "./CustomButton.style";
 import palette from "../../styles/colours";
+
 
 const CustomButton = ({
 	fullWidth,
@@ -11,6 +11,9 @@ const CustomButton = ({
 	type,
 	onPress,
 }) => {
+	const screenDimensions = Dimensions.get("screen");
+	const styles = getStyles(screenDimensions);
+
 	return (
 		<Pressable
 			style={[

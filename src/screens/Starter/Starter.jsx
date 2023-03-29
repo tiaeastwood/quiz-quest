@@ -1,21 +1,24 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState, useEffect } from "react";
-import { Text, SafeAreaView, View, Image } from "react-native";
+import React from "react";
+import { Text, SafeAreaView, View, Image, Dimensions } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import quizCat from "../../assets/images/quizcat.png";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import palette from "../../styles/colours.js";
 import { useQuizContext } from "../../context/QuizContext.jsx";
-import styles from "./Starter.style.js";
 import Slider from "@react-native-community/slider";
 import Pawprint from "../../assets/images/pawprint.png";
+import getStyles from "./Starter.style.js";
 
 const questionTypes = ["True or False", "Multiple Choice"];
 
 const Starter = () => {
 	const { numQuestions, questionType, updateNumQuestions, updateQuestionType } =
 		useQuizContext();
+
+	const screenDimensions = Dimensions.get("screen");
+	const styles = getStyles(screenDimensions);
 
 	const navigation = useNavigation();
 
@@ -49,27 +52,29 @@ const Starter = () => {
 					/>
 				</MaskedView>
 
-				<View style={styles.optionsContainer}>
-					<Text style={styles.subtitle}>
-						Choose number of questions: {numQuestions}
-					</Text>
-					<View style={styles.buttonsContainer}>
-						<Slider
-							style={{ width: "100%", height: 40 }}
-							step={1}
-							minimumValue={10}
-							maximumValue={50}
-							minimumTrackTintColor={palette.primary}
-							maximumTrackTintColor={palette.accent}
-							onValueChange={updateNumQuestions}
-							thumbImage={Pawprint}
-						/>
+				<View style={styles.outerOptionsContainer}>
+					<View style={styles.optionsContainer}>
+						<Text style={styles.subtitle}>Choose number of questions:</Text>
+						<View style={styles.sliderContainer}>
+							<Slider
+								style={styles.slider}
+								step={1}
+								minimumValue={10}
+								maximumValue={50}
+								minimumTrackTintColor={palette.primary}
+								maximumTrackTintColor={palette.accent}
+								onValueChange={updateNumQuestions}
+								thumbImage={Pawprint}
+							/>
+						</View>
+						<Text style={styles.subtitle}>{numQuestions}</Text>
 					</View>
 
-					<View>
-						<Text style={styles.subtitle}>
-							Choose type of questions: {questionType}
-						</Text>
+					<View style={styles.optionsContainer}>
+						<View>
+							<Text style={styles.subtitle}>Choose question type:</Text>
+							<Text style={styles.subtitle}>{questionType}</Text>
+						</View>
 						<View style={styles.buttonsContainer}>
 							{questionTypes.map((qType, index) => (
 								<CustomButton
@@ -81,7 +86,6 @@ const Starter = () => {
 							))}
 						</View>
 					</View>
-
 					<CustomButton
 						fullWidth
 						buttonText="start"

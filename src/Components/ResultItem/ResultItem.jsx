@@ -1,9 +1,12 @@
-import { Text, View } from "react-native";
-import styles from "./ResultItem.styles";
+import { Text, View, Dimensions } from "react-native";
+import getStyles from "./ResultItem.styles";
 import palette from "../../styles/colours";
 import { Entypo } from "@expo/vector-icons";
 
 const ResultItem = ({ questions, item }) => {
+	const screenDimensions = Dimensions.get("screen");
+	const styles = getStyles(screenDimensions);
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.textArea}>

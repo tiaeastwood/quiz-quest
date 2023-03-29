@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Text, SafeAreaView, ActivityIndicator, View } from "react-native";
+import { Text, SafeAreaView, ActivityIndicator, View, Dimensions } from "react-native";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import { useQuizContext } from "../../context/QuizContext.jsx";
 import GradientWrapper from "../../Components/GradientWrapper/GradientWrapper.jsx";
 
-import styles from "./Quiz.style.js";
+import getStyles from "./Quiz.style.js";
 import {
 	getTrueFalseQuestions,
 	getSpecificNumberOfRegularQuestions,
@@ -21,6 +21,9 @@ const Quiz = () => {
 		counter,
 		updateCounter,
 	} = useQuizContext();
+
+	const screenDimensions = Dimensions.get("screen");
+	const styles = getStyles(screenDimensions)
 
 	const [selectedOption, setSelectedOption] = useState("");
 

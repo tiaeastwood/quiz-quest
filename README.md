@@ -5,10 +5,18 @@ QUIZ QUEST is an app I built using React Native (expo) as an upskilling project.
 I was provided with a basic skeleton app and some pre-written functions containing API calls. 
 
 ## Index
+- [The Brief](#brief)
 - [Tech](#tech)
 - [Process](#process)
 - [Screenshots](#screenshots)
-- [Read The Full Brief](#brief)
+
+
+## Brief
+
+- Create an quiz app that can display a selected number of either "true or false" or "multiple choice" questions.
+- Must be able to see score at the end of the quiz, as well as see what answers we gave and if they were correct.
+- Use a context to store quiz data
+
 
 ## Tech
 - React Native with Expo
@@ -39,39 +47,7 @@ As well as completing the tasks provided in the brief, I spent some time designi
 
 ---
 
-## Brief
-
-_"I have provided a basic skeleton app with navigation and three screens as well as an API, with examples of it's usage (in Quiz.jsx).
-Three REST API calls are pre-written as functions that are given to you in the
-src/api/quiz.js file:_"
-
-1 - getTrueFalseQuestions: 10 questions in true/false format
-
-2 - getRegularQuestions: 10 questions in 4 answer format
-
-3 - getSpecificNumberOfRegularQuestions(number): given n => n questions in 4 answer format NOTE: MUST BE LESS THAN 50 questions
-
-### Create an app where:
-- Using the function getTrueFalseQuestions, display 10 questions in a paginated view or list/scrollview.
-- User can select true or false on the question
-- Result is stored (in a context provider, which you will have to create and wrap around the app)
-- At the end user is showed which answers were correct, which answers the user guessed and their score
-- User can start the quiz again
-
-#### Harder tier:
-- Use the second API function to retrieve questions with 4 answers, instead of True/False
-- Render the questions with all 4 answers, allow the users to select these answers
-- Rest of app should work the same as previous example
-
-#### Even harder tier:
-- Using the third API, the user inputs (using either a slider, text input or dropdown) how many questions (up to 50) they want to answer.
-- Rest of app works the same as previous exercises."
-
 
 Trivia API: [https://opentdb.com/api_config.php](https://opentdb.com/api_config.php)
-
-### Brief Authors
-
-- Jess Purvis
 
 

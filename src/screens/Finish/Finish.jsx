@@ -4,18 +4,16 @@ import {
 	Text,
 	SafeAreaView,
 	FlatList,
-	Image,
 	View,
 	ActivityIndicator,
+	Dimensions
 } from "react-native";
 import { useQuizContext } from "../../context/QuizContext.jsx";
-import awardImg from "../../assets/images/award.png";
 import ResultItem from "../../Components/ResultItem/ResultItem.jsx";
 import CustomButton from "../../Components/CustomButton/CustomButton.jsx";
 import GradientWrapper from "../../Components/GradientWrapper/GradientWrapper.jsx";
 import LottieView from "lottie-react-native";
-
-import styles from "./Finish.style.";
+import getStyles from "./Finish.style.";
 
 const Finish = () => {
 	const { quizQuestions, recordedAnswers, reset } = useQuizContext();
@@ -23,6 +21,9 @@ const Finish = () => {
 
 	const navigation = useNavigation();
 	const animation = useRef(null);
+
+	const screenDimensions = Dimensions.get("screen");
+	const styles = getStyles(screenDimensions);
 
 	const getScore = () => {
 		let score = 0;
@@ -49,7 +50,6 @@ const Finish = () => {
 	}, []);
 
 	if (finalScore === null) return <ActivityIndicator />;
-
 
 	return (
 		<GradientWrapper>
