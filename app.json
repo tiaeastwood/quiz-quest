@@ -19,7 +19,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tiaeastwood.quizquest"
+      "bundleIdentifier": "com.tiaeastwood.quizquest",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
