@@ -20,7 +20,7 @@ const getStyles = (screenDimensions) => {
 			justifyContent: "space-around",
 		},
 		outerOptionsContainer: {
-			width: "70%",
+			width: isTablet ? "70%" : "100%",
 			alignItems: "center",
 		},
 		titleText: {
@@ -39,13 +39,14 @@ const getStyles = (screenDimensions) => {
 			width: isTablet ? "60%" : "100%",
 			flexDirection: isTablet ? "row" : null,
 			justifyContent: "center",
+			alignItems: "center",
 			marginVertical: isTablet ? 10 : 1,
 		},
 		homeImage: {
 			height: isTablet ? "75%" : 400,
 			width: "100%",
 			position: "absolute",
-			bottom: -80,
+			bottom: isTablet ? -80 : -10,
 		},
 		input: {
 			height: 40,
@@ -60,7 +61,7 @@ const getStyles = (screenDimensions) => {
 			display: "flex",
 			flexDirection: "row",
 			justifyContent: "space-between",
-			marginBottom: 5,
+			marginBottom: isTablet ? 5 : 20,
 			marginLeft: isTablet ? 110 : 0,
 		},
 		sliderContainer: {
@@ -72,6 +73,10 @@ const getStyles = (screenDimensions) => {
 		slider: {
 			width: "90%",
 			height: 40,
+		},
+		questionType: {
+			display: "flex",
+			flexDirection: isTablet ? "column" : "row",
 		},
 	});
 	return styles;

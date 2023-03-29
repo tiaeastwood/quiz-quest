@@ -54,7 +54,9 @@ const Starter = () => {
 
 				<View style={styles.outerOptionsContainer}>
 					<View style={styles.optionsContainer}>
-						<Text style={styles.subtitle}>Choose number of questions:</Text>
+						<Text style={styles.subtitle}>
+							Choose number of questions: {numQuestions}
+						</Text>
 						<View style={styles.sliderContainer}>
 							<Slider
 								style={styles.slider}
@@ -67,13 +69,13 @@ const Starter = () => {
 								thumbImage={Pawprint}
 							/>
 						</View>
-						<Text style={styles.subtitle}>{numQuestions}</Text>
 					</View>
 
 					<View style={styles.optionsContainer}>
-						<View>
-							<Text style={styles.subtitle}>Choose question type:</Text>
-							<Text style={styles.subtitle}>{questionType}</Text>
+						<View style={styles.questionType}>
+							<Text style={styles.subtitle}>
+								Choose question type: {questionType}
+							</Text>
 						</View>
 						<View style={styles.buttonsContainer}>
 							{questionTypes.map((qType, index) => (
@@ -87,7 +89,7 @@ const Starter = () => {
 						</View>
 					</View>
 					<CustomButton
-						fullWidth
+						width="80%"
 						buttonText="start"
 						onPress={() => navigation.navigate("Quiz")}
 						disabled={!canStart}
